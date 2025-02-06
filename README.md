@@ -36,12 +36,10 @@
    source venv/bin/activate  # Для Linux/MacOS
    venv\Scripts\activate     # Для Windows
 
-
 3. **Установите необходимые зависимости:**
 
    ```bash
     pip install loguru ixbrowser_local_api
-
 
 
 Настройка
