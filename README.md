@@ -31,14 +31,16 @@
 
 2. **Создайте и активируйте виртуальное окружение (опционально):**
 
-python -m venv venv
-source venv/bin/activate  # Для Linux/MacOS
-venv\Scripts\activate     # Для Windows
+   ```bash
+ python -m venv venv
+ source venv/bin/activate  # Для Linux/MacOS
+ venv\Scripts\activate     # Для Windows
 
 
 3. **Установите необходимые зависимости:**
 
-pip install loguru ixbrowser_local_api
+   ```bash
+ pip install loguru ixbrowser_local_api
 
 
 
