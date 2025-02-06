@@ -31,10 +31,10 @@
 
 2. **Создайте и активируйте виртуальное окружение (опционально):**
 
-   ```python
- python -m venv venv
- source venv/bin/activate  # Для Linux/MacOS
- venv\Scripts\activate     # Для Windows
+   ```bash
+   python -m venv venv
+source venv/bin/activate  # Для Linux/MacOS
+venv\Scripts\activate     # Для Windows
 
 
 3. **Установите необходимые зависимости:**
