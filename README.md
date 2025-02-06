@@ -79,4 +79,4 @@
 Запустите скрипт с помощью Python:
 
 ```bash
-   python create_ix_browser_group_name.py
+python create_ix_browser_group_name.py
