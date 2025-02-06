@@ -21,7 +21,6 @@ site_url = 'https://www.google.com'
 
 # Настройки профиля
 
-
 # Отключаем инфо-страницу с IP
 pref_load_profile_info_page = 0
 # Отключаем звук
@@ -66,9 +65,8 @@ if group_id is None:
 
 logger.info("Используем группу '{group_name}' с ID {group_id}", group_name=profile_group_name, group_id=group_id)
 
+
 # Функция для создания настроек профиля на основе глобальных переменных
-
-
 def create_profile_settings():
     pref = Preference()
     pref.load_profile_info_page = pref_load_profile_info_page
@@ -80,6 +78,23 @@ def create_profile_settings():
     return pref
 
 
+# Получаем список всех прокси
+proxy_list = client.get_proxy_list()
+
+# Фильтруем только свободные прокси (где нет профилей в использовании)
+free_proxies = [
+    {
+        "ip": p.get("proxy_ip"),
+        "port": p.get("proxy_port"),
+        "username": p.get("proxy_user", ""),
+        "password": p.get("proxy_password", ""),
+        "type": p.get("proxy_type", "socks5")
+    }
+    for p in proxy_list if p.get("activeWindow", 0) == 0  # Проверяем, что прокси не используется
+]
+
+logger.info(f"Найдено {len(free_proxies)} свободных прокси.")
+
 # В цикле создаем профили
 for i in range(number_of_profiles):
     profile = Profile()
@@ -90,9 +105,19 @@ for i in range(number_of_profiles):
     profile.name = f'{profile_name_prefix} {i + 1} ' + time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
     profile.group_id = group_id
 
-    # Прокси-настройки (если нужны, здесь создаётся пустой объект)
-    proxy = Proxy()
-    profile.proxy_config = proxy
+    # Прокси-настройки
+    if free_proxies:
+        proxy_data = free_proxies.pop(0)  # Берем первый свободный прокси
+        proxy = Proxy()
+        proxy.proxy_ip = proxy_data["ip"]
+        proxy.proxy_port = proxy_data["port"]
+        proxy.proxy_user = proxy_data["username"]
+        proxy.proxy_password = proxy_data["password"]
+        proxy.proxy_type = proxy_data["type"]
+        profile.proxy_config = proxy
+        logger.info(f"Используем прокси {proxy_data['ip']}:{proxy_data['port']} для профиля {profile.name}")
+    else:
+        logger.warning(f"Нет свободных прокси! Профиль {profile.name} создается без прокси.")
 
     # Применяем настройки профиля из функции, которая использует глобальные переменные
     profile.preference_config = create_profile_settings()
