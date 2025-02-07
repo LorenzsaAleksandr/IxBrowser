@@ -34,7 +34,7 @@ pref_open_url = 'https://www.google.com'
 
 
 # Настройки отпечатка (Fingerprint)
-fingerprint_language_type = 1
+fingerprint_language_type = 2
 fingerprint_language = 'us'
 
 
