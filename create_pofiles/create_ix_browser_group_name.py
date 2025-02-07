@@ -6,10 +6,10 @@ from ixbrowser_local_api import IXBrowserClient, Profile, Proxy, Preference, Fin
 # Глобальные настройки
 
 # Имя группы, в которой будут создаваться профили (укажи точное название)
-profile_group_name = "auto"
+profile_group_name = "test"
 
 # Количество профилей, которое нужно создать
-number_of_profiles = 1  # 5 указано для примера
+number_of_profiles = 5  # 5 указано для примера
 
 # Префикс для имени профиля
 profile_name_prefix = "test"
@@ -31,7 +31,7 @@ fingerprint_language = 'us'
 show_request_log = False  # или True, если нужно логировать
 
 # Использовать прокси или нет (False – по умолчанию не использовать, изменить на True, если нужно применять прокси
-use_proxy = False
+use_proxy = True
 
 # Создаем клиента IXBrowser
 client = IXBrowserClient()
